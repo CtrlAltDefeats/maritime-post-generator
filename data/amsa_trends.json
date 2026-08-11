@@ -1,0 +1,46 @@
+{
+  "scraped_at": "2026-08-11T15:29:42.550375Z",
+  "count": 4,
+  "data": [
+    {
+      "category": "ISM Code — #1 AMSA Deficiency 3rd Consecutive Year",
+      "share": "Most Prevalent",
+      "count": "2,768 PSC inspections",
+      "year": "2025",
+      "severity": "Critical Focus",
+      "trend": "↑ Dominant 2023, 2024, 2025",
+      "findings": "Procedures not followed or understood operationally; Drills not conducted or records falsified; Near-miss reporting — systemic under-reporting culture; DPA oversight inadequate",
+      "insight": "AMSA confirmed ISM as the top deficiency for the third year running. Pattern: gap between SMS documentation and operational reality. AMSA surveyors now probe operational implementation directly — paper compliance is not sufficient."
+    },
+    {
+      "category": "Structural Conditions — Detainable Deficiencies Up 41%",
+      "share": "Leading Detention Driver",
+      "count": "237 total detentions 2025",
+      "year": "2025",
+      "severity": "High — DCV deficiencies +41%",
+      "trend": "↑ Detentions up from 212 in 2024",
+      "findings": "Hull structural deterioration beyond class limits; Hatch cover weathertight integrity failures; Void space corrosion and flooding; General cargo: 7.0% detention rate — highest by vessel type",
+      "insight": "AMSA detained 237 ships in 2025, up from 212 in 2024. General cargo detention rate 7.0%, container ships 5.9%. Reflects fleet age and maintenance deferral. Detainable deficiencies on domestic vessels rose 41%."
+    },
+    {
+      "category": "MLC 2006 — Up 27% Year-on-Year",
+      "share": "1,185 MLC deficiencies",
+      "count": "169 complaints, 12 detentions",
+      "year": "2025",
+      "severity": "Intensifying",
+      "trend": "↑ +27% year-on-year",
+      "findings": "Title 4 — Health/medical/welfare: 724 PSC deficiencies; Title 3 — Accommodation and food: 342 deficiencies; Hours of rest: >30% of direct seafarer complaints; Wage underpayment: 24.8% of complaints",
+      "insight": "AMSA 2025 reveals a key gap: seafarers complain most about wages (hidden violations), while PSC finds most deficiencies in physical conditions. AMSA uses both complaint data and PSC findings to target operators simultaneously."
+    },
+    {
+      "category": "AMSA Banning Regime — Refusal of Access",
+      "share": "Active enforcement",
+      "count": "Live refusal-of-access list",
+      "year": "2026",
+      "severity": "Serious — commercial impact",
+      "trend": "→ 3 detentions in 2 years = direction",
+      "findings": "Three detentions in two years: mandatory direction consideration; Return without rectifying conditioned deficiencies: immediate ban; Fleet-wide operator performance tracking across all vessels; 28 operators recognised as high-performing in 2025",
+      "insight": "AMSA's banning regime is among the world's most structured. Three detentions in two years triggers a direction. Return without rectification triggers immediate action. AMSA cross-references operator performance fleet-wide — one vessel's detention affects the whole fleet's risk profile."
+    }
+  ]
+}

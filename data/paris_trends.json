@@ -1,0 +1,66 @@
+{
+  "scraped_at": "2026-08-11T15:29:41.197540Z",
+  "count": 6,
+  "data": [
+    {
+      "category": "Fire Safety (SOLAS II-2)",
+      "share": "16.8%",
+      "count": "~8,600",
+      "year": "2025",
+      "severity": "Leading Category",
+      "trend": "↑ #1 category 5+ years",
+      "findings": "Fixed fire suppression system failures; Fire detection panel faults; Fire doors — 1,609 instances; Emergency fire pump failures",
+      "insight": "Fire safety topped Paris MOU deficiencies for the fifth year running. Systems pass annual surveys then fail between them because monthly testing is treated as paperwork."
+    },
+    {
+      "category": "Structure & Electrical (SOLAS II-1)",
+      "share": "11.6%",
+      "count": "~5,950",
+      "year": "2025",
+      "severity": "High Frequency",
+      "trend": "→ Stable at elevated level",
+      "findings": "Hull structural deterioration; Watertight integrity failures; Electrical earthing faults — 646 instances; Bilge system failures",
+      "insight": "Structural deficiencies reflect fleet age and deferred maintenance. Ships over 15 years account for a disproportionate share of detentions."
+    },
+    {
+      "category": "MLC 2006 — Crew Welfare",
+      "share": "10.0%",
+      "count": "~5,130",
+      "year": "2025",
+      "severity": "Increasing Focus",
+      "trend": "↑ CIC enforcement intensifying",
+      "findings": "SEAs — 664 instances; Hours of rest violations; Complaint procedures not posted; Wage payment delays",
+      "insight": "2025 Paris MOU CIC targeted wages and SEAs. Of 3,863 vessels inspected, 30 were detained. MLC is now a primary PSC focus area."
+    },
+    {
+      "category": "Lifesaving Appliances (SOLAS III)",
+      "share": "9.3%",
+      "count": "~4,770",
+      "year": "2025",
+      "severity": "High Frequency",
+      "trend": "→ Stable — preventable but persistent",
+      "findings": "Liferaft hydrostatic release overdue; Lifeboat release mechanism corroded; Immersion suit seal deterioration; EPIRB battery/release overdue",
+      "insight": "LSA deficiencies are entirely preventable through scheduled maintenance. They fail due to missed service intervals — not complex failures."
+    },
+    {
+      "category": "ISM Code",
+      "share": "4.5%",
+      "count": "~2,310",
+      "year": "2025",
+      "severity": "Detention Multiplier",
+      "trend": "↑ Amplifies every other finding",
+      "findings": "SMS paper compliance vs operational reality; NC register — open items not closed; Internal audits overdue; DPA oversight inadequate",
+      "insight": "ISM deficiencies rarely detain a vessel alone — but when found alongside fire or LSA issues, detention becomes near-certain. ISM is the multiplier."
+    },
+    {
+      "category": "Ballast Water Management",
+      "share": "3.1%",
+      "count": "~1,590",
+      "year": "2025",
+      "severity": "Emerging Focus",
+      "trend": "↑ Enforcement intensifying",
+      "findings": "BWTS not used on qualifying voyages; Record Book incomplete; Type approval docs not onboard; Crew not familiar with BWTS operation",
+      "insight": "Ballast water deficiencies reached 3.1% in 2025 — a significant increase. Operators who treated BWM as paperwork are being caught."
+    }
+  ]
+}
