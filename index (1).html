@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maritime Post Generator — Live Data | Graziano Potere</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0a0e1a; --navy-light: #111827; --steel: #1e3a5f; --gold: #d4af37;
+  --gold-dim: #b8941f; --green: #10b981; --red: #ef4444; --amber: #f59e0b;
+  --blue: #3b82f6; --text: #f1f5f9; --text-dim: #94a3b8; --text-muted: #64748b;
+  --border: rgba(255,255,255,0.08); --card: rgba(255,255,255,0.03);
+  --card-hover: rgba(212,175,55,0.06); --font: 'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--navy);color:var(--text);font-family:var(--font);min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased}
+.app{max-width:1200px;margin:0 auto;padding:0 24px}
+.header{background:linear-gradient(135deg,var(--navy),var(--steel));border-bottom:2px solid var(--gold);padding:28px 0;margin-bottom:24px}
+.header-inner{max-width:1200px;margin:0 auto;padding:0 24px}
+.live-badge{display:inline-flex;align-items:center;gap:6px;color:var(--gold);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.live-badge::before{content:'';width:7px;height:7px;background:var(--gold);border-radius:50%;animation:pulse 2.2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.85)}}
+.header h1{font-size:26px;font-weight:800;letter-spacing:-.6px}
+.header p{color:var(--text-dim);font-size:13.5px;margin-top:6px;max-width:640px}
+.status-bar{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:24px;padding:14px 18px;background:var(--card);border:1px solid var(--border);border-radius:12px;align-items:center}
+.status-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-dim)}
+.status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.status-dot.fresh{background:var(--green);box-shadow:0 0 6px rgba(16,185,129,.4)}
+.status-dot.stale{background:var(--amber)}
+.status-dot.error{background:var(--red);box-shadow:0 0 6px rgba(239,68,68,.4)}
+.status-dot.unknown{background:var(--text-muted)}
+.status-refresh{margin-left:auto;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text-dim);padding:6px 14px;border-radius:6px;font-size:12px;font-family:var(--font);cursor:pointer;transition:all .15s}
+.status-refresh:hover{border-color:var(--gold);color:var(--gold)}
+.main-layout{display:grid;grid-template-columns:260px 1fr;gap:28px}
+@media(max-width:900px){.main-layout{grid-template-columns:1fr}}
+.sidebar{display:flex;flex-direction:column;gap:10px}
+.sidebar-title{color:var(--gold);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.source-btn{display:flex;align-items:center;gap:12px;padding:13px 14px;background:var(--card);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;transition:all .13s;text-align:left;width:100%}
+.source-btn:hover,.source-btn.active{border-color:var(--gold);background:var(--card-hover)}
+.source-btn .icon{font-size:17px;width:22px;text-align:center}
+.source-btn .meta{margin-left:auto;font-size:11px;color:var(--text-muted);font-weight:500;background:rgba(255,255,255,.05);padding:2px 8px;border-radius:4px}
+.history-panel{margin-top:20px;padding-top:20px;border-top:1px solid var(--border)}
+.history-item{padding:10px 12px;background:rgba(255,255,255,.02);border-radius:8px;margin-bottom:8px;font-size:12px;color:var(--text-dim);cursor:pointer;border:1px solid transparent;transition:all .12s;line-height:1.5}
+.history-item:hover{border-color:var(--border);background:rgba(255,255,255,.04)}
+.history-item .time{color:var(--text-muted);font-size:11px;display:block;margin-bottom:2px}
+.history-item .preview{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:12px}
+.content{min-width:0}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.section-title{color:var(--gold);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+.section-subtitle{color:var(--text-muted);font-size:12px;font-weight:500}
+.search-box{width:100%;padding:12px 16px;background:rgba(255,255,255,.04);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-family:var(--font);font-size:13px;margin-bottom:16px;outline:none;transition:border-color .15s}
+.search-box:focus{border-color:var(--gold)}
+.search-box::placeholder{color:var(--text-muted)}
+.card-grid{display:flex;flex-direction:column;gap:10px}
+.item-card{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:16px;cursor:pointer;transition:all .12s;text-align:left}
+.item-card:hover,.item-card.selected{border-color:var(--gold);background:var(--card-hover)}
+.item-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.item-title{font-weight:700;font-size:14px;color:var(--text);line-height:1.4}
+.item-sub{font-size:12px;color:var(--text-dim);margin-top:3px}
+.item-preview{font-size:12px;color:var(--text-muted);margin-top:8px;line-height:1.5}
+.badge-tag{display:inline-block;padding:3px 10px;border-radius:4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;flex-shrink:0}
+.badge-red{background:rgba(239,68,68,.12);color:#fca5a5}
+.badge-amber{background:rgba(245,158,11,.12);color:#fcd34d}
+.badge-green{background:rgba(16,185,129,.12);color:#6ee7b7}
+.badge-blue{background:rgba(59,130,246,.12);color:#93c5fd}
+.badge-gold{background:rgba(212,175,55,.12);color:var(--gold)}
+.config-panel{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;margin-top:20px;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.config-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+@media(max-width:600px){.config-grid{grid-template-columns:1fr}}
+.config-btn{padding:18px 14px;background:rgba(255,255,255,.03);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-family:var(--font);cursor:pointer;transition:all .12s;text-align:center}
+.config-btn:hover,.config-btn.active{border-color:var(--gold);background:var(--card-hover)}
+.config-btn .icon{font-size:24px;margin-bottom:6px;display:block}
+.config-btn .label{font-size:13px;font-weight:700;display:block}
+.config-btn .desc{font-size:11px;color:var(--text-muted);margin-top:4px;display:block}
+.config-btn.active .label{color:var(--gold)}
+.template-label{color:var(--gold);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px}
+.template-select{width:100%;padding:12px 14px;background:rgba(255,255,255,.04);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-family:var(--font);font-size:13px;outline:none;margin-bottom:18px;cursor:pointer;transition:border-color .15s}
+.template-select:focus{border-color:var(--gold)}
+.template-select option{background:var(--navy);color:var(--text)}
+.btn-primary{width:100%;padding:14px;background:var(--gold);color:var(--navy);border:none;border-radius:10px;font-family:var(--font);font-size:15px;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-primary:hover{opacity:.92;transform:translateY(-1px)}
+.btn-primary:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.post-output{margin-top:24px;animation:fadeIn .4s ease}
+.post-card{background:#fff;border-radius:12px;padding:24px;border:2px solid var(--gold-dim);color:#1a202c;box-shadow:0 4px 24px rgba(0,0,0,.15)}
+.post-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #e2e8f0}
+.post-avatar{width:48px;height:48px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;color:var(--gold);font-weight:800;font-size:15px;flex-shrink:0}
+.post-name{font-weight:700;font-size:15px;color:var(--navy)}
+.post-role{font-size:12px;color:#718096}
+.post-body{font-size:14px;line-height:1.8;white-space:pre-wrap;color:#1a202c}
+.post-actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.btn-ghost{padding:12px;background:rgba(255,255,255,.07);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+.tip-box{background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.2);border-radius:10px;padding:16px;margin-top:16px}
+.tip-label{color:var(--gold);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
+.tip-text{color:var(--text-dim);font-size:12px;line-height:1.7}
+.loading{text-align:center;padding:48px}
+.loading-icon{font-size:40px;animation:spin 2s linear infinite;display:inline-block}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.loading p{color:var(--text-dim);margin-top:12px;font-size:14px}
+.empty{text-align:center;padding:48px;color:var(--text-muted);font-size:14px}
+.empty a{color:var(--gold)}
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:var(--navy)}
+::-webkit-scrollbar-thumb{background:var(--steel);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:var(--gold-dim)}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-inner">
+    <div class="live-badge">Live Data Connected</div>
+    <h1>⚓ Maritime Post Generator</h1>
+    <p>Real-time USCG · Tokyo MOU · Paris MOU · AMSA data — runs entirely in your browser. No API keys. No AI services.</p>
+  </div>
+</div>
+
+<div class="app">
+  <div class="status-bar" id="statusBar">
+    <div class="status-item"><span class="status-dot unknown" id="dot-uscg"></span>USCG: <span id="status-uscg">Loading...</span></div>
+    <div class="status-item"><span class="status-dot unknown" id="dot-tokyo"></span>Tokyo MOU: <span id="status-tokyo">Loading...</span></div>
+    <div class="status-item"><span class="status-dot unknown" id="dot-paris"></span>Paris MOU: <span id="status-paris">Loading...</span></div>
+    <div class="status-item"><span class="status-dot unknown" id="dot-amsa"></span>AMSA: <span id="status-amsa">Loading...</span></div>
+    <button class="status-refresh" onclick="location.reload()">↻ Refresh</button>
+  </div>
+
+  <div class="main-layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">Data Sources</div>
+      <button class="source-btn active" onclick="selectSource('uscg')" id="btn-uscg">
+        <span class="icon">🇺🇸</span>
+        <span>USCG Detentions</span>
+        <span class="meta" id="count-uscg">--</span>
+      </button>
+      <button class="source-btn" onclick="selectSource('tokyo')" id="btn-tokyo">
+        <span class="icon">🌏</span>
+        <span>Tokyo MOU Detentions</span>
+        <span class="meta" id="count-tokyo">--</span>
+      </button>
+      <button class="source-btn" onclick="selectSource('paris')" id="btn-paris">
+        <span class="icon">🇪🇺</span>
+        <span>Paris MOU Trends</span>
+        <span class="meta" id="count-paris">--</span>
+      </button>
+      <button class="source-btn" onclick="selectSource('amsa')" id="btn-amsa">
+        <span class="icon">🇦🇺</span>
+        <span>AMSA Trends</span>
+        <span class="meta" id="count-amsa">--</span>
+      </button>
+
+      <div class="history-panel" id="historyPanel">
+        <div class="sidebar-title">Recent Posts</div>
+        <div id="historyList"></div>
+      </div>
+    </aside>
+
+    <main class="content">
+      <div class="section-header">
+        <span class="section-title" id="contentTitle">Select a record</span>
+        <span class="section-subtitle" id="contentSubtitle"></span>
+      </div>
+
+      <input type="text" class="search-box" id="searchBox" placeholder="Search vessel name, IMO, or flag..." oninput="handleSearch()" style="display:none;">
+
+      <div id="itemList">
+        <div class="loading"><span class="loading-icon">⚓</span><p>Loading live data...</p></div>
+      </div>
+
+      <div class="config-panel" id="configPanel" style="display:none;">
+        <div class="section-title" style="margin-bottom:14px;">Choose Tone</div>
+        <div class="config-grid" id="toneGrid">
+          <button class="config-btn active" onclick="setTone('educational', this)">
+            <span class="icon">📚</span>
+            <span class="label">Educational</span>
+            <span class="desc">Explain the why</span>
+          </button>
+          <button class="config-btn" onclick="setTone('analytical', this)">
+            <span class="icon">🔍</span>
+            <span class="label">Analytical</span>
+            <span class="desc">Data & patterns</span>
+          </button>
+          <button class="config-btn" onclick="setTone('advisory', this)">
+            <span class="icon">💡</span>
+            <span class="label">Advisory</span>
+            <span class="desc">Action steps</span>
+          </button>
+        </div>
+
+        <div class="template-label">Template Style</div>
+        <select class="template-select" id="templateSelect">
+          <option value="standard">Standard — Balanced professional post</option>
+          <option value="hook">Strong Hook — Lead with the most striking fact</option>
+          <option value="story">Storytelling — Frame as a narrative from the bridge</option>
+          <option value="data">Data-First — Lead with statistics and context</option>
+        </select>
+
+        <button class="btn-primary" onclick="generatePost()" id="genBtn">Generate LinkedIn Post →</button>
+      </div>
+
+      <div class="post-output" id="postOutput"></div>
+    </main>
+  </div>
+</div>
+
+<script>
+const TAGS = "#MaritimeCompliance #ISMCode #PortStateControl #MaritimeSafety #MLC2006 #SOLAS #Maritime #ShipManagement #DPA";
+const DATA_URLS = {
+  uscg: './data/uscg_detentions.json',
+  tokyo: './data/tokyo_detentions.json',
+  paris: './data/paris_trends.json',
+  amsa: './data/amsa_trends.json'
+};
+
+let currentSource = 'uscg', selectedItem = null, selectedTone = 'educational', selectedTemplate = 'standard', allItems = [], dataCache = {};
+
+function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function timeAgo(iso){
+  if(!iso) return 'never';
+  const diff = Date.now() - new Date(iso).getTime();
+  const mins = Math.floor(diff/60000);
+  if(mins<1) return 'just now';
+  if(mins<60) return mins+'m ago';
+  const hrs = Math.floor(mins/60);
+  if(hrs<24) return hrs+'h ago';
+  return Math.floor(hrs/24)+'d ago';
+}
+function esc(str){ return str.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+async function loadAllData(){
+  await Promise.all(Object.keys(DATA_URLS).map(src=>loadSourceData(src)));
+  renderStatusBar(); loadSource('uscg'); renderHistory();
+}
+async function loadSourceData(src){
+  try{
+    const res = await fetch(DATA_URLS[src],{cache:'no-store'});
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const json = await res.json();
+    dataCache[src]=json;
+    updateStatus(src,'fresh',json.count+' records · '+timeAgo(json.scraped_at));
+    document.getElementById('count-'+src).textContent = json.count;
+  }catch(err){
+    dataCache[src]=null;
+    updateStatus(src,'error','No data');
+    document.getElementById('count-'+src).textContent='0';
+    console.error('Failed to load '+src,err);
+  }
+}
+function updateStatus(src,state,text){
+  const dot=document.getElementById('dot-'+src), status=document.getElementById('status-'+src);
+  if(dot) dot.className='status-dot '+state;
+  if(status) status.textContent=text;
+}
+function renderStatusBar(){
+  const anyFresh = Object.values(dataCache).some(d=>d&&d.scraped_at);
+  if(!anyFresh){
+    document.getElementById('statusBar').insertAdjacentHTML('beforeend',
+      '<div class="status-item" style="color:var(--amber);font-size:12px;margin-left:auto;">'+
+      '⚠️ Data files not found. Run the scraper first.</div>');
+  }
+}
+
+function selectSource(src){
+  currentSource=src; selectedItem=null;
+  document.querySelectorAll('.source-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('btn-'+src).classList.add('active');
+  document.getElementById('configPanel').style.display='none';
+  document.getElementById('postOutput').innerHTML='';
+  loadSource(src);
+}
+function loadSource(src){
+  const listEl=document.getElementById('itemList');
+  const cache=dataCache[src];
+  if(!cache){
+    listEl.innerHTML='<div class="empty"><p>No data available.</p>'+
+      '<p style="margin-top:8px;font-size:13px;">Trigger the GitHub Actions workflow to populate data.</p></div>';
+    document.getElementById('searchBox').style.display='none';
+    document.getElementById('contentTitle').textContent='Data Unavailable';
+    document.getElementById('contentSubtitle').textContent='';
+    return;
+  }
+  allItems=cache.data||[];
+  document.getElementById('searchBox').style.display=(src==='uscg'||src==='tokyo')?'block':'none';
+  document.getElementById('searchBox').value='';
+  renderItems(allItems);
+  const titles={uscg:'USCG IMO Reportable Detentions',tokyo:'Tokyo MOU Detentions',paris:'Paris MOU Deficiency Trends 2025',amsa:'AMSA Compliance Trends 2025'};
+  document.getElementById('contentTitle').textContent=titles[src];
+  document.getElementById('contentSubtitle').textContent=allItems.length+' records · Updated '+timeAgo(cache.scraped_at);
+}
+
+function renderItems(items){
+  const listEl=document.getElementById('itemList');
+  if(items.length===0){ listEl.innerHTML='<div class="empty">No records match your search.</div>'; return; }
+  if(currentSource==='uscg'){
+    listEl.innerHTML=items.map((v,i)=>`<div class="item-card" onclick="selectItem(${i},this)" data-index="${i}">
+      <div class="item-header"><div><div class="item-title">${esc(v.vessel_name)}</div>
+      <div class="item-sub">IMO ${v.imo} · ${esc(v.flag)} · ${v.month} ${v.year}</div></div>
+      <span class="badge-tag badge-red">DETAINED</span></div>
+      <div class="item-preview">Status: ${esc(v.case_status)}</div></div>`).join('');
+  }else if(currentSource==='tokyo'){
+    listEl.innerHTML=items.map((v,i)=>`<div class="item-card" onclick="selectItem(${i},this)" data-index="${i}">
+      <div class="item-header"><div><div class="item-title">${esc(v.name)}</div>
+      <div class="item-sub">${v.imo?'IMO '+v.imo+' · ':''}${esc(v.flag)}${v.date?' · '+v.date.split('T')[0]:''}</div></div>
+      <span class="badge-tag badge-amber">TOKYO MOU</span></div></div>`).join('');
+  }else if(currentSource==='paris'){
+    listEl.innerHTML=items.map((v,i)=>`<div class="item-card" onclick="selectItem(${i},this)" data-index="${i}">
+      <div class="item-header"><div style="flex:1"><div class="item-title">${esc(v.category)}</div>
+      <div class="item-sub">${v.share} · ${v.count} · ${v.year}</div></div>
+      <span class="badge-tag badge-gold">${esc(v.severity)}</span></div>
+      <div class="item-preview">${esc(v.trend)}</div></div>`).join('');
+  }else if(currentSource==='amsa'){
+    listEl.innerHTML=items.map((v,i)=>`<div class="item-card" onclick="selectItem(${i},this)" data-index="${i}">
+      <div class="item-header"><div style="flex:1"><div class="item-title">${esc(v.category)}</div>
+      <div class="item-sub">${v.share} · ${v.count} · ${v.year}</div></div>
+      <span class="badge-tag badge-green">${esc(v.severity)}</span></div>
+      <div class="item-preview">${esc(v.trend)}</div></div>`).join('');
+  }
+}
+function handleSearch(){
+  const q=document.getElementById('searchBox').value.trim().toLowerCase();
+  if(!q){renderItems(allItems);return;}
+  renderItems(allItems.filter(v=>JSON.stringify(v).toLowerCase().includes(q)));
+}
+function selectItem(idx,el){
+  selectedItem=allItems[idx];
+  document.querySelectorAll('.item-card').forEach(c=>c.classList.remove('selected'));
+  if(el) el.classList.add('selected');
+  document.getElementById('configPanel').style.display='block';
+  document.getElementById('configPanel').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function setTone(tone,btn){
+  selectedTone=tone;
+  document.querySelectorAll('.config-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function build(content,sourceText,tagExtra){ return content+"
+
+—
+Source: "+sourceText+"
+"+TAGS+" "+tagExtra; }
+
+function generatePost(){
+  if(!selectedItem) return;
+  selectedTemplate=document.getElementById('templateSelect').value;
+  const out=document.getElementById('postOutput');
+  out.innerHTML='<div class="loading"><span class="loading-icon">⚓</span><p>Drafting your post...</p></div>';
+  setTimeout(()=>{
+    const text=generateFromTemplate();
+    out.innerHTML='<div class="post-card"><div class="post-header"><div class="post-avatar">GP</div><div>'+
+      '<div class="post-name">Graziano Potere</div><div class="post-role">ISM & Compliance Manager · Carnival Cruise Line · LR Certified Auditor</div></div></div>'+
+      '<div class="post-body" id="postText">'+esc(text)+'</div></div>'+
+      '<div class="post-actions"><button class="btn-primary" onclick="copyPost()" id="copyBtn" style="background:var(--navy);color:var(--gold);border:1.5px solid var(--gold);">📋 Copy to Clipboard</button>'+
+      '<button class="btn-ghost" onclick="generatePost()">↺ Regenerate</button></div>'+
+      '<div class="tip-box"><div class="tip-label">Posting tips</div><div class="tip-text">Post Mon–Thu 7–9am ET · Add a vessel or port photo · AMSA posts resonate with Asia-Pacific operators · Tag flag state or class society for amplification · Aim 3–4 posts/week</div></div>';
+    saveToHistory(text);
+  },400);
+}
+
+function generateFromTemplate(){
+  const v=selectedItem, t=selectedTone, tpl=selectedTemplate, src=currentSource;
+
+  // USCG
+  if(src==='uscg'){
+    const srcText='USCG CG-CVC-2 IMO Reportable Detentions — '+v.month+' '+v.year;
+    const tagExtra='#USCGInspection';
+    const hook=tpl==='hook'?pick([
+      '"'+v.vessel_name+'" was detained in '+v.month+' '+v.year+'.
+
+That single finding tells you everything about why this '+v.flag+'-flagged vessel was stopped by USCG.',
+      'IMO '+v.imo+' — detained by USCG.
+
+'+v.vessel_name+' was held in port this '+v.month+', and the pattern is unmistakable.',
+      v.vessel_name+' ('+v.imo+') — '+v.case_status+' detention, '+v.flag+' flag.'
+    ]):tpl==='story'?'Imagine you are the Master of '+v.vessel_name+'. You have just been informed by the USCG inspector that your vessel is detained.
+
+The reason: case status "'+v.case_status+'" with '+v.flag+' flag documentation issues.':
+    tpl==='data'?v.vessel_name+', '+v.month+' '+v.year+'. IMO '+v.imo+'. '+v.flag+' flag. Case status: '+v.case_status+'.':
+    pick(['Another detention — and the pattern is unmistakable.','When I see a USCG detention report, I look past the vessel name. I look for the systemic failure.',v.vessel_name+' was detained by USCG this '+v.month+'. Here's what every operator should take from it.']);
+
+    if(t==='educational'){
+      if(tpl==='hook') return build(hook+'
+
+From my perspective as both a former Chief Mate and current ISM auditor, this detention illustrates a familiar gap — the distance between what the SMS says happens and what actually happens on board.
+
+The '+v.flag+' flag operates under increased scrutiny. When USCG inspectors find deficiencies, they are not discovering new problems — they are documenting known gaps that the operator failed to close.
+
+For DPAs: this is exactly the type of finding you want to catch internally. If the USCG found it first, your SMS gap analysis needs work.',srcText,tagExtra);
+      if(tpl==='story') return build(hook+'
+
+You knew the voyage was tight, the budget was tighter, and the assumption was that compliance could wait until the next port.
+
+This is not a failure of regulation. It is a failure of prioritization. ISM Code 1.2.2 requires resources. SOLAS requires functional equipment. MLC requires rest. None of these are optional.
+
+'+v.vessel_name+' is a reminder that "next port" sometimes becomes "this port" — and the cost is measured in days, dollars, and reputation.',srcText,tagExtra);
+      if(tpl==='data') return build(hook+'
+
+The numbers: '+v.flag+' flag detention rate is elevated in USCG targeting models. Case status "'+v.case_status+'" indicates formal validation.
+
+But numbers are only the surface. Beneath them is the operational reality: a Master who certified compliance, a safety officer who missed the defect, a DPA who relied on reports rather than evidence.
+
+Education in maritime compliance is not about memorizing codes. It is about understanding that every detention represents a moment when a system failed — and a moment when it could have been caught.
+
+'+v.vessel_name+' is that teaching moment.',srcText,tagExtra);
+      return build(hook+'
+
+'+v.vessel_name+' ('+v.imo+', '+v.flag+' flag) was detained with case status "'+v.case_status+'".
+
+From my perspective as both a former Chief Mate and current ISM auditor, this detention illustrates a familiar gap — the distance between what the SMS says happens and what actually happens on board.
+
+The regulatory framework is clear: ISM Code 10.1 requires the Master to verify compliance. SOLAS requires functional safety systems. But compliance is not a signature — it is a condition.
+
+For operators: use this case in your next internal audit brief. Ask your DPAs whether they would have caught this before the inspector did. If the answer is uncertain, that is your starting point.',srcText,tagExtra);
+    }
+    if(t==='analytical'){
+      if(tpl==='hook') return build(hook+'
+
+Data point: '+v.vessel_name+', '+v.imo+', '+v.flag+' flag. Detention status: '+v.case_status+'. Month: '+v.month+' '+v.year+'.
+
+Pattern analysis: Vessels with '+v.flag+' flag show elevated detention rates in USCG data. This case fits the profile — a foreign-flagged vessel with case status "'+v.case_status+'" entering the US inspection regime.
+
+The question for analysts: is this a fleet-wide issue for this operator, or a single-vessel anomaly? The answer determines whether this is a compliance case or a systemic audit trigger.',srcText,tagExtra);
+      if(tpl==='story') return build(hook+'
+
+IMO '+v.imo+'. '+v.flag+' flag. Case status: '+v.case_status+'.
+
+From a data perspective, this detention is not an outlier. It is a data point in a distribution. '+v.flag+' flag vessels show patterns in USCG detention data. The probability of inspection was not low — it was predictable.
+
+What the data cannot show is the human factor: the Master who certified compliance, the superintendent who approved the delay, the DPA who did not visit. Those are the variables that turn probability into detention.',srcText,tagExtra);
+      if(tpl==='data') return build(hook+'
+
+Vessel: IMO '+v.imo+', '+v.flag+' flag. Case status: '+v.case_status+'.
+
+Context: USCG 2026 detention patterns show continued focus on ISM implementation and fire safety. Vessels with '+v.flag+' flag show elevated inspection priority.
+
+This case aligns with the pattern. The question for analysts: is this a fleet-wide issue for this operator, or a single-vessel anomaly? The answer determines whether this is a compliance case or a systemic audit trigger.',srcText,tagExtra);
+      return build(hook+'
+
+'+v.vessel_name+' ('+v.imo+') — '+v.flag+' flag, detained '+v.month+' '+v.year+'. Case status: '+v.case_status+'.
+
+Pattern recognition matters here. '+v.flag+' flag vessels are subject to elevated USCG inspection priority. This case fits the profile.
+
+Data point: USCG detention rates for foreign-flagged vessels remain elevated. This case is not an outlier — it is a data point in a distribution.
+
+The question is not why this vessel was detained. It is how many others in the same fleet share the same risk profile.',srcText,tagExtra);
+    }
+    // advisory
+    if(tpl==='hook') return build(hook+'
+
+Here is your action list:
+
+1. Review your SMS against this exact profile. Does your procedure prevent detention?
+2. Check your fleet for the same flag state risk. '+v.flag+' — understand your exposure.
+3. Brief your Masters. They are your first line of defence — not your last.
+4. Update your DPA visit checklist. If an inspector found it, your DPA should have found it first.
+
+Detention is expensive. Prevention is not.',srcText,tagExtra);
+    if(tpl==='story') return build(hook+'
+
+Now put yourself in the operator's position. What should have happened differently?
+
+Week 1: The risk was identified internally. It was logged. It was assigned.
+Week 4: The corrective action was verified with evidence.
+Week 8: The DPA confirmed closure during a vessel visit.
+
+Instead, the deficiency remained open until the USCG inspector found it. The cost: detention, delay, reputation damage, potential charterparty implications.
+
+The fix is not more regulation. It is execution of the regulation already in place.',srcText,tagExtra);
+    if(tpl==='data') return build(hook+'
+
+What the data means for operators:
+- '+v.flag+' flag: understand your flag's risk profile in USCG targeting
+- Case status "'+v.case_status+'": verify documentation before US port calls
+- IMO '+v.imo+': benchmark this vessel type's detention rate
+
+Data without action is decoration. Use this case to drive your next safety meeting, your next audit scope, your next DPA visit plan.
+
+The vessel was detained. Your fleet does not need to be.',srcText,tagExtra);
+    return build(hook+'
+
+'+v.vessel_name+' was detained by USCG with case status "'+v.case_status+'". Here is what your SMS should prevent — and how.
+
+Action 1: Verify flag state risk profile before US port calls
+Action 2: Add USCG detention patterns to your internal audit checklist
+Action 3: Assign ownership. If no one is accountable, no one acts.
+
+For DPAs: this detention is a template for your next fleet review. For Masters: it is a reminder that the inspector tests what you certify. For operators: it is a cost calculation — detention costs exceed proactive maintenance by orders of magnitude.',srcText,tagExtra);
+  }
+
+  // TOKYO MOU
+  if(src==='tokyo'){
+    const srcText='Tokyo MOU Detention List via OpenSanctions — '+(v.date?v.date.split('T')[0]:'2025-2026');
+    const tagExtra='#TokyoMOU #AsiaPacific';
+    const d=v.date?v.date.split('T')[0]:'Recent';
+    if(t==='educational') return build(v.name+' was detained in the Tokyo MOU region.
+
+Flag: '+v.flag+'. '+(v.imo?'IMO: '+v.imo+'.':'')+'
+
+Tokyo MOU 2025 data shows 35,546 inspections with a detention rate reflecting continued regional vigilance. The Asia-Pacific region does not tolerate substandard shipping — and this detention proves it.
+
+From an educational standpoint, '+v.name+' demonstrates what happens when vessels enter the Tokyo MOU inspection regime without adequate preparation. AMSA, Japan, Korea, China — these authorities share data. A deficiency found in Sydney is tested again in Busan.
+
+For operators: Tokyo MOU detentions affect your Ship Risk Profile across all MOU regions. One detention here elevates your inspection priority everywhere.',srcText,tagExtra);
+    if(t==='analytical') return build(v.name+(v.imo?' ('+v.imo+')':'')+': Detained, Tokyo MOU region.
+
+Flag: '+v.flag+'. Date: '+d+'.
+
+Context: Tokyo MOU 2025 — 35,546 inspections, 19,980 individual ships, 111 flags. The region maintains one of the most active PSC regimes globally.
+
+Analytical note: '+v.flag+' flag vessels show patterns in Tokyo MOU data. This detention enters the APCIS database and affects risk profiling across all member authorities including AMSA, Japan, Korea, and Singapore.
+
+For fleet analysts: track Tokyo MOU detentions as leading indicators. They predict Paris MOU and USCG outcomes with statistical significance.',srcText,tagExtra);
+    return build(v.name+' — Tokyo MOU detention.
+
+What operators must do:
+1. Track this detention in your fleet database — APCIS shares data globally
+2. Verify corrective actions with evidence before next Asia-Pacific port call
+3. If this is your second detention in 24 months, you are one away from a banning direction
+4. Engage your RO proactively — Tokyo MOU links deficiencies to class certificates
+
+'+v.flag+' flag. This is not a surprise inspection outcome. It is a predictable consequence of unmanaged risk.',srcText,tagExtra);
+  }
+
+  // PARIS MOU
+  if(src==='paris'){
+    const srcText='Paris MOU Annual Report 2025 — published July 2026';
+    const tagExtra='#ParisMOU #DeficiencyTrends';
+    const f=v.findings?v.findings.split(';').map(s=>s.trim()):[];
+    if(t==='educational'){
+      const hook=tpl==='hook'?pick([v.share+'.
+
+That is the share of '+v.category+' deficiencies in the Paris MOU 2025 dataset — '+v.count+' instances.',v.category+' leads the Paris MOU deficiency table at '+v.share+'. Here's why that matters.','Paris MOU 2025: '+v.category+' at '+v.share+'. The fifth consecutive year at the top.']):
+      tpl==='data'?'Paris MOU 2025 data is out — and '+v.category+' leads the deficiency table for the fifth consecutive year.':
+      pick(['Paris MOU 2025 data is out — and '+v.category+' leads the deficiency table.','When I analyze Paris MOU annual reports, I look for the systemic failure behind the numbers.',v.category+' at '+v.share+'. Here's what every operator should take from it.']);
+      return build(hook+'
+
+'+v.share+' of all deficiencies. '+v.count+' instances. '+(f[0]||'')+'. '+(f[1]||'')+'
+
+'+v.insight+'
+
+As an educator in maritime compliance, I use this data to show crews and shore staff what inspectors actually find. It is not exotic failures. It is basic maintenance neglected. It is monthly tests that became signatures without verification.
+
+The regulatory requirement is not complex. The Paris MOU data shows that '+v.share+' of all deficiencies relate to '+v.category+' alone. The gap is not knowledge. It is execution.',srcText,tagExtra);
+    }
+    if(t==='analytical'){
+      const hook=tpl==='hook'?pick([v.share+'.
+
+That is the share of '+v.category+' deficiencies in the Paris MOU 2025 dataset — '+v.count+' instances.',v.category+' leads the Paris MOU deficiency table at '+v.share+'. Here's why that matters.','Paris MOU 2025: '+v.category+' at '+v.share+'. The fifth consecutive year at the top.']):
+      tpl==='data'?'Paris MOU 2025 Annual Report: '+v.category+' at '+v.share+' ('+v.count+').':
+      pick(['Paris MOU 2025 data is out — and '+v.category+' leads the deficiency table.','When I analyze Paris MOU annual reports, I look for the systemic failure behind the numbers.',v.category+' at '+v.share+'. Here's what every operator should take from it.']);
+      return build(hook+'
+
+Top findings: '+v.findings+'.
+
+'+v.insight+'
+
+Analytical context: 51,000+ total deficiencies across 16,474 inspections. 4.18% detention rate. '+v.category+' has been a leading category for 5+ years, which suggests systemic rather than episodic failure.
+
+For data-driven compliance: target '+v.category+' in your next internal audit. The probability of PSC finding it is higher than any other category.',srcText,tagExtra);
+    }
+    // advisory
+    return build('Paris MOU 2025: '+v.category+' leads at '+v.share+'. Here is what to do about it.
+
+1. '+(f[0]||v.findings)+' — add to DPA visit checklist with pass/fail criteria
+2. '+(f[1]||f[0]||v.findings)+' — schedule monthly verification, not just documentation
+3. '+(f[2]||f[0]||v.findings)+' — train crews on what inspectors test
+4. Review your internal audit scope — if it does not cover '+v.category+' explicitly, expand it
+
+'+v.insight+'
+
+The data tells you where to focus. Your SMS tells you how. The gap between them is what Paris MOU inspectors find.',srcText,tagExtra);
+  }
+
+  // AMSA
+  if(src==='amsa'){
+    const srcText='AMSA Annual Inspections Report 2025 — published March 2026';
+    const tagExtra='#AMSA #Australia #MaritimeAustralia';
+    const f=v.findings?v.findings.split(';').map(s=>s.trim()):[];
+    if(t==='educational'){
+      const hook=tpl==='hook'?pick(['AMSA 2025 reveals a critical trend: '+v.category+'.',v.category+'. '+v.share+'. '+v.count+'. The data speaks for itself.','AMSA has now ranked '+v.category.split('—')[0].trim()+' as the top deficiency for three consecutive years. This is why.']):
+      tpl==='data'?'AMSA 2025 data reveals a critical trend: '+v.category+'.':
+      pick(['AMSA 2025 data reveals a critical trend: '+v.category+'.','When I analyze AMSA annual reports, I look for the gap between documentation and reality.',v.category+'. '+v.share+'. Here's what every operator should take from it.']);
+      return build(hook+'
+
+'+v.share+'. '+v.count+'. '+v.trend+'.
+
+'+(f[0]||'')+'. '+(f[1]||'')+'
+
+'+v.insight+'
+
+As a compliance educator, I find this data invaluable. It tells us not just what inspectors find, but what the industry is failing to prevent. The gap between SMS documentation and operational reality is not a new problem — but AMSA's three-year data confirms it is a persistent one.
+
+For training programs: use this data to show crews what "paper compliance" looks like from an inspector's perspective.',srcText,tagExtra);
+    }
+    if(t==='analytical'){
+      const hook=tpl==='hook'?pick(['AMSA 2025 reveals a critical trend: '+v.category+'.',v.category+'. '+v.share+'. '+v.count+'. The data speaks for itself.','AMSA has now ranked '+v.category.split('—')[0].trim()+' as the top deficiency for three consecutive years. This is why.']):
+      tpl==='data'?'AMSA 2025 Annual Report analysis: '+v.category+'.':
+      pick(['AMSA 2025 data reveals a critical trend: '+v.category+'.','When I analyze AMSA annual reports, I look for the gap between documentation and reality.',v.category+'. '+v.share+'. Here's what every operator should take from it.']);
+      return build(hook+'
+
+'+v.share+' — '+v.count+'. Trend: '+v.trend+'.
+
+Key findings: '+v.findings+'.
+
+'+v.insight+'
+
+Statistical context: 2,768 PSC inspections. 237 detentions (4.8%). '+(v.category.includes('ISM')?'ISM deficiencies: most prevalent for 3rd consecutive year.':v.category.includes('Structural')?'Structural detainable deficiencies up 41%.':v.category.includes('MLC')?'MLC deficiencies up 27% year-on-year.':'')+'
+
+For compliance analysts: this trend data should drive your next internal audit scope. If AMSA finds it repeatedly, your fleet likely has it too.',srcText,tagExtra);
+    }
+    // advisory
+    return build('AMSA 2025: '+v.category+'. Here is your action framework.
+
+1. '+(f[0]||v.findings)+' — fleet-wide verification within 30 days
+2. '+(f[1]||f[0]||v.findings)+' — update SMS procedures with operational evidence requirements
+3. '+(f[2]||f[0]||v.findings)+' — DPA visit checklist revision
+4. Internal audit scope: explicitly cover '+(v.category.includes('ISM')?'ISM operational implementation':v.category.includes('Structural')?'structural condition and weathertight integrity':v.category.includes('MLC')?'MLC Title 3 and Title 4 compliance':'this category')+'
+
+'+v.insight+'
+
+Trends are early warnings. Act on them before they become your detention record.',srcText,tagExtra);
+  }
+
+  return "Template not found for this selection.";
+}
+
+function copyPost(){
+  const text=document.getElementById('postText')?.textContent||'';
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=document.getElementById('copyBtn');
+    btn.textContent='✓ Copied!';
+    btn.style.background='var(--green)';
+    btn.style.color='#fff';
+    btn.style.borderColor='var(--green)';
+    setTimeout(()=>{
+      btn.textContent='📋 Copy to Clipboard';
+      btn.style.background='var(--navy)';
+      btn.style.color='var(--gold)';
+      btn.style.borderColor='var(--gold)';
+    },2000);
+  });
+}
+
+function saveToHistory(text){
+  let h=JSON.parse(localStorage.getItem('mpg_history')||'[]');
+  h.unshift({text:text.slice(0,120)+'...',time:new Date().toISOString(),full:text});
+  h=h.slice(0,20);
+  localStorage.setItem('mpg_history',JSON.stringify(h));
+  renderHistory();
+}
+function renderHistory(){
+  const h=JSON.parse(localStorage.getItem('mpg_history')||'[]');
+  const el=document.getElementById('historyList');
+  if(!h.length){el.innerHTML='<div style="color:var(--text-muted);font-size:12px;padding:8px 0;">No posts yet.</div>';return;}
+  el.innerHTML=h.map((item,i)=>`<div class="history-item" onclick="restoreHistory(${i})">
+    <span class="time">${new Date(item.time).toLocaleString()}</span>
+    <div class="preview">${esc(item.text)}</div></div>`).join('');
+}
+function restoreHistory(i){
+  const h=JSON.parse(localStorage.getItem('mpg_history')||'[]');
+  if(!h[i]) return;
+  document.getElementById('postOutput').innerHTML='<div class="post-card"><div class="post-header"><div class="post-avatar">GP</div><div>'+
+    '<div class="post-name">Graziano Potere</div><div class="post-role">ISM & Compliance Manager · Carnival Cruise Line · LR Certified Auditor</div></div></div>'+
+    '<div class="post-body" id="postText">'+esc(h[i].full)+'</div></div>'+
+    '<div class="post-actions"><button class="btn-primary" onclick="copyPost()" id="copyBtn" style="background:var(--navy);color:var(--gold);border:1.5px solid var(--gold);">📋 Copy to Clipboard</button>'+
+    '<button class="btn-ghost" onclick="generatePost()">↺ Regenerate</button></div>'+
+    '<div class="tip-box"><div class="tip-label">Posting tips</div><div class="tip-text">Post Mon–Thu 7–9am ET · Add a vessel or port photo · AMSA posts resonate with Asia-Pacific operators · Tag flag state or class society for amplification · Aim 3–4 posts/week</div></div>';
+}
+
+document.addEventListener('DOMContentLoaded',loadAllData);
+</script>
+</body>
+</html>
