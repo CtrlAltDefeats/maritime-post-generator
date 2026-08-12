@@ -1,0 +1,13 @@
+{
+  "scraped_at": "2026-08-12T06:00:00Z",
+  "count": 7,
+  "data": [
+    {"imo":"1047110","vessel_name":"UNITY ISLAND","flag":"Panama","month":"May","year":"2026","case_status":"Validated"},
+    {"imo":"7326245","vessel_name":"ALGOMA COMPASS","flag":"Canada","month":"May","year":"2026","case_status":"Validated"},
+    {"imo":"9526502","vessel_name":"CMA CGM CLEVELAND","flag":"Malta","month":"April","year":"2026","case_status":"Validated"},
+    {"imo":"9431472","vessel_name":"POTENTIA","flag":"Singapore","month":"April","year":"2026","case_status":"Validated"},
+    {"imo":"9374296","vessel_name":"MARIA FAITH","flag":"Marshall Islands","month":"April","year":"2026","case_status":"Validated"},
+    {"imo":"8914142","vessel_name":"SARA EXPRESS","flag":"Honduras","month":"March","year":"2026","case_status":"Validated"},
+    {"imo":"9251717","vessel_name":"MSC MAUREEN","flag":"Panama","month":"March","year":"2026","case_status":"Validated"}
+  ]
+}
