@@ -1,0 +1,71 @@
+{
+  "scraped_at": "2026-08-12T14:55:29.530949Z",
+  "count": 5,
+  "data": [
+    {
+      "vessel_name": "NORDIC HAWK",
+      "imo": "9612841",
+      "flag": "Bahamas",
+      "month": "May",
+      "year": "2026",
+      "type": "Container Ship",
+      "port": "Charleston, SC",
+      "category": "Navigation Safety",
+      "severity": "Observation",
+      "findings": "ECDIS chart corrections overdue 6 weeks; Passage plan incomplete — no abort points defined; Pilot ladder rigging non-compliant SOLAS V/23",
+      "action": "Letter of Deviation issued. Corrections before next US port call."
+    },
+    {
+      "vessel_name": "OCEAN PIONEER",
+      "imo": "9234567",
+      "flag": "Liberia",
+      "month": "May",
+      "year": "2026",
+      "type": "Bulk Carrier",
+      "port": "New Orleans, LA",
+      "category": "ISM / SMS",
+      "severity": "Non-Conformity",
+      "findings": "Internal audit overdue — not conducted in 14 months; Master's SMS review not documented; 4 open NC items with no corrective action timeline",
+      "action": "Flag state notified. Safety management audit required 30 days."
+    },
+    {
+      "vessel_name": "PACIFIC TRADER",
+      "imo": "9445621",
+      "flag": "Marshall Islands",
+      "month": "April",
+      "year": "2026",
+      "type": "Tanker",
+      "port": "Houston, TX",
+      "category": "Fire Safety",
+      "severity": "Deficiency",
+      "findings": "CO2 system pressure 15% below minimum; Engine room ventilation damper linkage disconnected; Fire main pressure test failed at aft station",
+      "action": "Deficiencies noted. Rectification required before next inspection."
+    },
+    {
+      "vessel_name": "STELLAR MARINER",
+      "imo": "9387412",
+      "flag": "Cyprus",
+      "month": "April",
+      "year": "2026",
+      "type": "General Cargo",
+      "port": "Baltimore, MD",
+      "category": "MLC 2006",
+      "severity": "Observation",
+      "findings": "SEA wage deduction clause potentially non-compliant; Complaint procedure not posted in accommodation; Hours of rest schedule not accessible to all crew",
+      "action": "MLC documentation review required within 14 days."
+    },
+    {
+      "vessel_name": "ARMONIA BLUE",
+      "imo": "9501234",
+      "flag": "Italy",
+      "month": "March",
+      "year": "2026",
+      "type": "RoRo Passenger",
+      "port": "Port Everglades, FL",
+      "category": "Lifesaving Appliances",
+      "severity": "Deficiency",
+      "findings": "3 immersion suits with damaged zipper seals; Rescue boat engine failed to start on first attempt; Muster drill response time exceeded 30 minutes",
+      "action": "Deficiencies rectified. Verified by USCG before departure."
+    }
+  ]
+}
