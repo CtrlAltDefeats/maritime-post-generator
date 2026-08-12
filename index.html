@@ -104,6 +104,7 @@ body{background:var(--navy);color:var(--text);font-family:var(--font);min-height
 ::-webkit-scrollbar-thumb:hover{background:var(--gold-dim)}
 </style>
 <base target="_blank">
+<base target="_blank">
 </head>
 <body>
 
@@ -118,9 +119,9 @@ body{background:var(--navy);color:var(--text);font-family:var(--font);min-height
 <div class="app">
   <div class="status-bar" id="statusBar">
     <div class="status-item"><span class="status-dot unknown" id="dot-uscg"></span>USCG Det: <span id="status-uscg">Loading...</span></div>
-    <div class="status-item"><span class="status-dot unknown" id="dot-uscg-obs"></span>USCG Obs: <span id="status-uscg-obs">Loading...</span></div>
+    <div class="status-item"><span class="status-dot unknown" id="dot-uscg_obs"></span>USCG Obs: <span id="status-uscg_obs">Loading...</span></div>
     <div class="status-item"><span class="status-dot unknown" id="dot-tokyo"></span>Tokyo Det: <span id="status-tokyo">Loading...</span></div>
-    <div class="status-item"><span class="status-dot unknown" id="dot-tokyo-obs"></span>Tokyo Obs: <span id="status-tokyo-obs">Loading...</span></div>
+    <div class="status-item"><span class="status-dot unknown" id="dot-tokyo_obs"></span>Tokyo Obs: <span id="status-tokyo_obs">Loading...</span></div>
     <div class="status-item"><span class="status-dot unknown" id="dot-paris"></span>Paris: <span id="status-paris">Loading...</span></div>
     <div class="status-item"><span class="status-dot unknown" id="dot-amsa"></span>AMSA: <span id="status-amsa">Loading...</span></div>
     <button class="status-refresh" onclick="location.reload()">↻ Refresh</button>
@@ -137,20 +138,20 @@ body{background:var(--navy);color:var(--text);font-family:var(--font);min-height
         <span>USCG Detentions</span>
         <span class="meta" id="count-uscg">--</span>
       </button>
-      <button class="source-btn" onclick="window._app.selectSource('uscg_obs')" id="btn-uscg-obs">
+      <button class="source-btn" onclick="window._app.selectSource('uscg_obs')" id="btn-uscg_obs">
         <span class="icon">🇺🇸</span>
         <span>USCG Observations</span>
-        <span class="meta" id="count-uscg-obs">--</span>
+        <span class="meta" id="count-uscg_obs">--</span>
       </button>
       <button class="source-btn" onclick="window._app.selectSource('tokyo')" id="btn-tokyo">
         <span class="icon">🌏</span>
         <span>Tokyo MOU Detentions</span>
         <span class="meta" id="count-tokyo">--</span>
       </button>
-      <button class="source-btn" onclick="window._app.selectSource('tokyo_obs')" id="btn-tokyo-obs">
+      <button class="source-btn" onclick="window._app.selectSource('tokyo_obs')" id="btn-tokyo_obs">
         <span class="icon">🌏</span>
         <span>Tokyo MOU Observations</span>
-        <span class="meta" id="count-tokyo-obs">--</span>
+        <span class="meta" id="count-tokyo_obs">--</span>
       </button>
       <button class="source-btn" onclick="window._app.selectSource('paris')" id="btn-paris">
         <span class="icon">🇪🇺</span>
@@ -283,11 +284,14 @@ async function loadSourceData(src){
     if(!json || !Array.isArray(json.data)) throw new Error('Invalid JSON structure');
     dataCache[src] = json;
     updateStatus(src, 'fresh', json.count + ' records · ' + timeAgo(json.scraped_at));
-    document.getElementById('count-' + src).textContent = json.count;
+    const countEl = document.getElementById('count-' + src);
+    if(countEl) countEl.textContent = json.count;
+    else console.warn('Missing element: count-' + src);
   } catch(err) {
     dataCache[src] = null;
     updateStatus(src, 'error', 'Failed');
-    document.getElementById('count-' + src).textContent = '0';
+    const countEl2 = document.getElementById('count-' + src);
+    if(countEl2) countEl2.textContent = '0';
     console.error('Failed to load ' + src, err);
   }
 }
@@ -307,7 +311,9 @@ function renderStatusBar(){
 function selectSource(src){
   currentSource = src; selectedItem = null;
   document.querySelectorAll('.source-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('btn-' + src).classList.add('active');
+  const btnEl = document.getElementById('btn-' + src);
+  if(btnEl) btnEl.classList.add('active');
+  else console.warn('Missing button: btn-' + src);
   document.getElementById('configPanel').style.display = 'none';
   document.getElementById('postOutput').innerHTML = '';
   loadSource(src);
