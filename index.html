@@ -130,22 +130,22 @@ body{background:var(--navy);color:var(--text);font-family:var(--font);min-height
   <div class="main-layout">
     <aside class="sidebar">
       <div class="sidebar-title">Data Sources</div>
-      <button class="source-btn active" onclick="selectSource('uscg')" id="btn-uscg">
+      <button class="source-btn active" onclick="window._app.selectSource('uscg')" id="btn-uscg">
         <span class="icon">🇺🇸</span>
         <span>USCG Detentions</span>
         <span class="meta" id="count-uscg">--</span>
       </button>
-      <button class="source-btn" onclick="selectSource('tokyo')" id="btn-tokyo">
+      <button class="source-btn" onclick="window._app.selectSource('tokyo')" id="btn-tokyo">
         <span class="icon">🌏</span>
         <span>Tokyo MOU Detentions</span>
         <span class="meta" id="count-tokyo">--</span>
       </button>
-      <button class="source-btn" onclick="selectSource('paris')" id="btn-paris">
+      <button class="source-btn" onclick="window._app.selectSource('paris')" id="btn-paris">
         <span class="icon">🇪🇺</span>
         <span>Paris MOU Trends</span>
         <span class="meta" id="count-paris">--</span>
       </button>
-      <button class="source-btn" onclick="selectSource('amsa')" id="btn-amsa">
+      <button class="source-btn" onclick="window._app.selectSource('amsa')" id="btn-amsa">
         <span class="icon">🇦🇺</span>
         <span>AMSA Trends</span>
         <span class="meta" id="count-amsa">--</span>
@@ -163,7 +163,7 @@ body{background:var(--navy);color:var(--text);font-family:var(--font);min-height
         <span class="section-subtitle" id="contentSubtitle"></span>
       </div>
 
-      <input type="text" class="search-box" id="searchBox" placeholder="Search vessel name, IMO, or flag..." oninput="handleSearch()" style="display:none;">
+      <input type="text" class="search-box" id="searchBox" placeholder="Search vessel name, IMO, or flag..." oninput="window._app.handleSearch()" style="display:none;">
 
       <div id="itemList">
         <div class="loading"><span class="loading-icon">⚓</span><p>Loading live data...</p></div>
@@ -172,17 +172,17 @@ body{background:var(--navy);color:var(--text);font-family:var(--font);min-height
       <div class="config-panel" id="configPanel" style="display:none;">
         <div class="section-title" style="margin-bottom:14px;">Choose Tone</div>
         <div class="config-grid" id="toneGrid">
-          <button class="config-btn active" onclick="setTone('educational', this)">
+          <button class="config-btn active" onclick="window._app.setTone('educational', this)">
             <span class="icon">📚</span>
             <span class="label">Educational</span>
             <span class="desc">Explain the why</span>
           </button>
-          <button class="config-btn" onclick="setTone('analytical', this)">
+          <button class="config-btn" onclick="window._app.setTone('analytical', this)">
             <span class="icon">🔍</span>
             <span class="label">Analytical</span>
             <span class="desc">Data & patterns</span>
           </button>
-          <button class="config-btn" onclick="setTone('advisory', this)">
+          <button class="config-btn" onclick="window._app.setTone('advisory', this)">
             <span class="icon">💡</span>
             <span class="label">Advisory</span>
             <span class="desc">Action steps</span>
@@ -559,7 +559,10 @@ body{background:var(--navy);color:var(--text);font-family:var(--font);min-height
 
   // Expose to window for inline onclick handlers
   window._app = {
+    selectSource: selectSource,
     selectItem: selectItem,
+    setTone: setTone,
+    handleSearch: handleSearch,
     generatePost: generatePost,
     copyPost: copyPost,
     restoreHistory: restoreHistory
