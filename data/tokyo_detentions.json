@@ -1,95 +1,88 @@
 {
-  "scraped_at": "2026-08-30T11:24:05.408414Z",
+  "scraped_at": "2026-08-31T12:54:08.852077Z",
   "count": 200,
   "data": [
     {
-      "name": "DUBHE",
-      "imo": "9490818",
-      "flag": "mh",
-      "date": "2026-08-23T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "VS SUNSHINE",
-      "imo": "8695863",
-      "flag": "st",
-      "date": "2026-08-23T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "G PUTUO",
-      "imo": "9491238",
-      "flag": "lr",
-      "date": "2026-08-23T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "NING YUE",
-      "imo": "1105924",
-      "flag": "my",
-      "date": "2026-08-23T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "DE XIN FU JIN",
-      "imo": "9222479",
+      "name": "FU ZHI",
+      "imo": "9973509",
       "flag": "pa",
-      "date": "2026-08-23T14:02:01",
+      "date": "2026-08-30T14:02:01",
       "source_url": ""
     },
     {
-      "name": "CSE WISDOM EXPRESS",
-      "imo": "9730919",
+      "name": "ISLAND FERRY",
+      "imo": "9411159",
+      "flag": "sl",
+      "date": "2026-08-30T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "JI ZHE GLORY",
+      "imo": "8901872",
       "flag": "pa",
-      "date": "2026-08-23T14:02:01",
+      "date": "2026-08-30T14:02:01",
       "source_url": ""
     },
     {
-      "name": "ANYI",
-      "imo": "1059149",
-      "flag": "tz",
-      "date": "2026-08-23T14:02:01",
+      "name": "MORJAN",
+      "imo": "9109354",
+      "flag": "kn",
+      "date": "2026-08-30T14:02:01",
       "source_url": ""
     },
     {
-      "name": "GO SIRIUS",
-      "imo": "9545871",
-      "flag": "sg",
-      "date": "2026-08-23T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "DSM AMBITION",
-      "imo": "9472672",
-      "flag": "pa",
-      "date": "2026-08-23T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "NEW BORN 26",
-      "imo": "9187447",
+      "name": "SOFICO",
+      "imo": "9140504",
       "flag": "pw",
-      "date": "2026-08-23T14:02:01",
+      "date": "2026-08-30T14:02:01",
       "source_url": ""
     },
     {
-      "name": "FLAGSHIP",
-      "imo": "9514224",
+      "name": "SSI BRILLIANT",
+      "imo": "9567099",
       "flag": "mh",
-      "date": "2026-08-23T14:02:01",
+      "date": "2026-08-30T14:02:01",
       "source_url": ""
     },
     {
-      "name": "PANCARAN HARMONY",
-      "imo": "8525862",
-      "flag": "st",
-      "date": "2026-08-23T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "SYNERGY BUSAN",
-      "imo": "9450571",
+      "name": "ATLANTIC VISION",
+      "imo": "9372767",
       "flag": "mh",
+      "date": "2026-08-30T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "GIYAS",
+      "imo": "9208526",
+      "flag": "kn",
+      "date": "2026-08-30T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "GIACOMETTI",
+      "imo": "9615377",
+      "flag": "lr",
+      "date": "2026-08-30T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "STEVIE",
+      "imo": "9488035",
+      "flag": "ag",
+      "date": "2026-08-30T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "MARUHUB",
+      "imo": "1160443",
+      "flag": "tz",
+      "date": "2026-08-30T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "ESL WALRUS",
+      "imo": "9493626",
+      "flag": "lr",
       "date": "2026-08-23T14:02:01",
       "source_url": ""
     },
@@ -101,9 +94,51 @@
       "source_url": ""
     },
     {
-      "name": "XING HAI YOU 3",
-      "imo": "1181681",
-      "flag": "bz",
+      "name": "TTP 56",
+      "imo": "8591354",
+      "flag": "pw",
+      "date": "2026-08-23T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "NING YUE",
+      "imo": "1105924",
+      "flag": "my",
+      "date": "2026-08-23T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "SYNERGY BUSAN",
+      "imo": "9450571",
+      "flag": "mh",
+      "date": "2026-08-23T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "NEW BORN 26",
+      "imo": "9187447",
+      "flag": "pw",
+      "date": "2026-08-23T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "CSE WISDOM EXPRESS",
+      "imo": "9730919",
+      "flag": "pa",
+      "date": "2026-08-23T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "BRAVE SWALLOW",
+      "imo": "9993652",
+      "flag": "lr",
+      "date": "2026-08-23T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "PANCARAN HARMONY",
+      "imo": "8525862",
+      "flag": "st",
       "date": "2026-08-23T14:02:01",
       "source_url": ""
     },
@@ -115,6 +150,13 @@
       "source_url": ""
     },
     {
+      "name": "FLAGSHIP",
+      "imo": "9514224",
+      "flag": "mh",
+      "date": "2026-08-23T14:02:01",
+      "source_url": ""
+    },
+    {
       "name": "KAI QIANG189",
       "imo": "1087213",
       "flag": "pa",
@@ -122,23 +164,30 @@
       "source_url": ""
     },
     {
-      "name": "ESL WALRUS",
-      "imo": "9493626",
-      "flag": "lr",
+      "name": "GO SIRIUS",
+      "imo": "9545871",
+      "flag": "sg",
       "date": "2026-08-23T14:02:01",
       "source_url": ""
     },
     {
-      "name": "TTP 56",
-      "imo": "8591354",
-      "flag": "pw",
+      "name": "XING HAI YOU 3",
+      "imo": "1181681",
+      "flag": "bz",
       "date": "2026-08-23T14:02:01",
       "source_url": ""
     },
     {
-      "name": "BRAVE SWALLOW",
-      "imo": "9993652",
-      "flag": "lr",
+      "name": "DE XIN FU JIN",
+      "imo": "9222479",
+      "flag": "pa",
+      "date": "2026-08-23T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "DUBHE",
+      "imo": "9490818",
+      "flag": "mh",
       "date": "2026-08-23T14:02:01",
       "source_url": ""
     },
@@ -1351,55 +1400,6 @@
       "imo": "9177569",
       "flag": "pa",
       "date": "2026-06-14T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "ODYSSEUS N",
-      "imo": "9490442",
-      "flag": "mh",
-      "date": "2026-06-14T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "TONSBERG",
-      "imo": "9216999",
-      "flag": "lr",
-      "date": "2026-06-14T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "SEAGULL",
-      "imo": "9960538",
-      "flag": "lr",
-      "date": "2026-06-14T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "TRIDENT UNITY",
-      "imo": "9616541",
-      "flag": "pt",
-      "date": "2026-06-07T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "SHINSHU MARU",
-      "imo": "9791200",
-      "flag": "bs",
-      "date": "2026-06-07T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "MERATUS JIMBARAN",
-      "imo": "9213105",
-      "flag": "pa",
-      "date": "2026-06-07T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "BEAUTY PEPPA",
-      "imo": "9721310",
-      "flag": "mh",
-      "date": "2026-06-07T14:02:01",
       "source_url": ""
     }
   ]
