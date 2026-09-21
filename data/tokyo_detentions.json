@@ -1,39 +1,186 @@
 {
-  "scraped_at": "2026-09-20T10:45:53.455194Z",
+  "scraped_at": "2026-09-21T12:10:26.527989Z",
   "count": 200,
   "data": [
     {
-      "name": "CAPE ISLAND",
-      "imo": "9277711",
-      "flag": "cy",
-      "date": "2026-09-13T14:02:01",
+      "name": "NAVIOS SOL",
+      "imo": "9545170",
+      "flag": "pa",
+      "date": "2026-09-20T14:02:01",
       "source_url": ""
     },
     {
-      "name": "LMZ ATLAS",
-      "imo": "9850018",
-      "flag": "cy",
-      "date": "2026-09-13T14:02:01",
+      "name": "PEACEFUL WORLD",
+      "imo": "1080605",
+      "flag": "pa",
+      "date": "2026-09-20T14:02:01",
       "source_url": ""
     },
     {
-      "name": "MAERSK JAKARTA",
-      "imo": "9865881",
+      "name": "KMTC PENANG",
+      "imo": "9821093",
+      "flag": "pa",
+      "date": "2026-09-20T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "DEFENDER",
+      "imo": "9949663",
+      "flag": "mh",
+      "date": "2026-09-20T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "DALI",
+      "imo": "9279874",
+      "flag": "bb",
+      "date": "2026-09-20T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "KMTC OSAKA",
+      "imo": "9848883",
+      "flag": "pa",
+      "date": "2026-09-20T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "SANTA VIOLA",
+      "imo": "9295373",
+      "flag": "mt",
+      "date": "2026-09-20T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "CELINA",
+      "imo": "9591428",
+      "flag": "lr",
+      "date": "2026-09-20T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "SCORPIO II",
+      "imo": "9507843",
+      "flag": "pa",
+      "date": "2026-09-20T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "NEW ACTIVITY",
+      "imo": "9361524",
+      "flag": "lr",
+      "date": "2026-09-20T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "PIONEER OCEAN",
+      "imo": "9265926",
+      "flag": "bs",
+      "date": "2026-09-20T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "YI HUI RUI HAI",
+      "imo": "9284673",
+      "flag": "pa",
+      "date": "2026-09-20T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "BAM STAR",
+      "imo": "9145982",
+      "flag": "pa",
+      "date": "2026-09-20T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "BLUEBIRD ARROW",
+      "imo": "9635377",
+      "flag": "mh",
+      "date": "2026-09-20T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "NSG HONOR",
+      "imo": "9453248",
+      "flag": "lr",
+      "date": "2026-09-20T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "VALKYRIE",
+      "imo": "9869588",
+      "flag": "pa",
+      "date": "2026-09-20T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "GLOBAL NOVA",
+      "imo": "9618630",
+      "flag": "mh",
+      "date": "2026-09-20T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "HT PIONEER",
+      "imo": "9444182",
+      "flag": "pa",
+      "date": "2026-09-20T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "GLORY SHINE",
+      "imo": "1182465",
+      "flag": "sl",
+      "date": "2026-09-20T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "KOTA LUMAYAN",
+      "imo": "9494541",
+      "flag": "sg",
+      "date": "2026-09-20T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "MSC ARINA",
+      "imo": "9839284",
+      "flag": "pa",
+      "date": "2026-09-20T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "BUENA ESPERANZA",
+      "imo": "9643960",
+      "flag": "pa",
+      "date": "2026-09-20T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "ATLANTIC ONYX",
+      "imo": "1078274",
+      "flag": "lr",
+      "date": "2026-09-20T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "COSMO GLORIA",
+      "imo": "9898993",
       "flag": "pa",
       "date": "2026-09-13T14:02:01",
       "source_url": ""
     },
     {
-      "name": "TALON",
-      "imo": "9040118",
-      "flag": "km",
+      "name": "MSC IKARIA VI",
+      "imo": "9261449",
+      "flag": "lr",
       "date": "2026-09-13T14:02:01",
       "source_url": ""
     },
     {
-      "name": "RICH GLORY",
-      "imo": "9324629",
-      "flag": "mt",
+      "name": "SHENG HONG 12",
+      "imo": "1062964",
+      "flag": "pa",
       "date": "2026-09-13T14:02:01",
       "source_url": ""
     },
@@ -41,55 +188,6 @@
       "name": "UNIVERSE HARMONY",
       "imo": "9222546",
       "flag": "pa",
-      "date": "2026-09-13T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "PARANDOWSKI",
-      "imo": "9432139",
-      "flag": "lr",
-      "date": "2026-09-13T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "MSC PINA",
-      "imo": "9339272",
-      "flag": "pa",
-      "date": "2026-09-13T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "NF VISION",
-      "imo": "9300570",
-      "flag": "lr",
-      "date": "2026-09-13T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "NEW DOLPHIN",
-      "imo": "9454137",
-      "flag": "bz",
-      "date": "2026-09-13T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "AC SPLENDOR",
-      "imo": "9288239",
-      "flag": "pa",
-      "date": "2026-09-13T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "SEA SPIRIT",
-      "imo": "9345829",
-      "flag": "cy",
-      "date": "2026-09-13T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "ARTHGALLO",
-      "imo": "9207716",
-      "flag": "ck",
       "date": "2026-09-13T14:02:01",
       "source_url": ""
     },
@@ -108,30 +206,9 @@
       "source_url": ""
     },
     {
-      "name": "CM LAURENCIA",
-      "imo": "9316880",
-      "flag": "id",
-      "date": "2026-09-13T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "STAR CHARIS",
-      "imo": "9615418",
-      "flag": "lr",
-      "date": "2026-09-13T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "SHENG HONG 12",
-      "imo": "1062964",
-      "flag": "pa",
-      "date": "2026-09-13T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "MSC IKARIA VI",
-      "imo": "9261449",
-      "flag": "lr",
+      "name": "CAPE ISLAND",
+      "imo": "9277711",
+      "flag": "cy",
       "date": "2026-09-13T14:02:01",
       "source_url": ""
     },
@@ -143,17 +220,87 @@
       "source_url": ""
     },
     {
-      "name": "COSMO GLORIA",
-      "imo": "9898993",
+      "name": "NEW DOLPHIN",
+      "imo": "9454137",
+      "flag": "bz",
+      "date": "2026-09-13T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "LMZ ATLAS",
+      "imo": "9850018",
+      "flag": "cy",
+      "date": "2026-09-13T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "STAR CHARIS",
+      "imo": "9615418",
+      "flag": "lr",
+      "date": "2026-09-13T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "MSC PINA",
+      "imo": "9339272",
       "flag": "pa",
       "date": "2026-09-13T14:02:01",
       "source_url": ""
     },
     {
-      "name": "ECO SIKOUSIS",
-      "imo": "9317523",
+      "name": "AC SPLENDOR",
+      "imo": "9288239",
+      "flag": "pa",
+      "date": "2026-09-13T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "CM LAURENCIA",
+      "imo": "9316880",
+      "flag": "id",
+      "date": "2026-09-13T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "MAERSK JAKARTA",
+      "imo": "9865881",
+      "flag": "pa",
+      "date": "2026-09-13T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "PARANDOWSKI",
+      "imo": "9432139",
       "flag": "lr",
       "date": "2026-09-13T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "ARTHGALLO",
+      "imo": "9207716",
+      "flag": "ck",
+      "date": "2026-09-13T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "SEA SPIRIT",
+      "imo": "9345829",
+      "flag": "cy",
+      "date": "2026-09-13T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "RICH GLORY",
+      "imo": "9324629",
+      "flag": "mt",
+      "date": "2026-09-13T14:02:01",
+      "source_url": ""
+    },
+    {
+      "name": "HONG CHENG YUN 902",
+      "imo": "1195852",
+      "flag": "st",
+      "date": "2026-09-06T14:19:15",
       "source_url": ""
     },
     {
@@ -223,13 +370,6 @@
       "name": "SWAN SPIRIT",
       "imo": "9852286",
       "flag": "lr",
-      "date": "2026-09-06T14:19:15",
-      "source_url": ""
-    },
-    {
-      "name": "HONG CHENG YUN 902",
-      "imo": "1195852",
-      "flag": "st",
       "date": "2026-09-06T14:19:15",
       "source_url": ""
     },
@@ -1260,146 +1400,6 @@
       "imo": "9748459",
       "flag": "mh",
       "date": "2026-06-28T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "OMICRON SKY",
-      "imo": "9330329",
-      "flag": "lr",
-      "date": "2026-06-28T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "FEI RUN",
-      "imo": "9621015",
-      "flag": "cn",
-      "date": "2026-06-28T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "LOTUS RIVER",
-      "imo": "9005194",
-      "flag": "sl",
-      "date": "2026-06-28T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "STELLAR ALAZANI",
-      "imo": "9708265",
-      "flag": "lr",
-      "date": "2026-06-28T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "MARAN VISION",
-      "imo": "9332951",
-      "flag": "gr",
-      "date": "2026-06-28T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "MEDKON DON",
-      "imo": "9347956",
-      "flag": "pa",
-      "date": "2026-06-28T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "QUELIMANE 1",
-      "imo": "1178945",
-      "flag": "st",
-      "date": "2026-06-28T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "OCEAN ROAD",
-      "imo": "9503201",
-      "flag": "pa",
-      "date": "2026-06-28T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "GLOVIS COMPANION",
-      "imo": "9460899",
-      "flag": "lr",
-      "date": "2026-06-28T14:02:01",
-      "source_url": ""
-    },
-    {
-      "name": "AANYA",
-      "imo": "9592446",
-      "flag": "pa",
-      "date": "2026-06-21T14:05:25",
-      "source_url": ""
-    },
-    {
-      "name": "ETERNAL PROSPERITY",
-      "imo": "9149665",
-      "flag": "pa",
-      "date": "2026-06-19T14:09:35",
-      "source_url": ""
-    },
-    {
-      "name": "EVER GRADE",
-      "imo": "9820855",
-      "flag": "pa",
-      "date": "2026-06-19T14:09:35",
-      "source_url": ""
-    },
-    {
-      "name": "W-ORIGINAL",
-      "imo": "9627758",
-      "flag": "lr",
-      "date": "2026-06-19T14:09:35",
-      "source_url": ""
-    },
-    {
-      "name": "HAO HAI JI YUN",
-      "imo": "1041087",
-      "flag": "pa",
-      "date": "2026-06-19T14:09:35",
-      "source_url": ""
-    },
-    {
-      "name": "HAO HAI 308",
-      "imo": "1180728",
-      "flag": "st",
-      "date": "2026-06-19T14:09:35",
-      "source_url": ""
-    },
-    {
-      "name": "CORNALIN",
-      "imo": "9947263",
-      "flag": "pa",
-      "date": "2026-06-19T14:09:35",
-      "source_url": ""
-    },
-    {
-      "name": "DA DONG FANG 21",
-      "imo": "1175149",
-      "flag": "sl",
-      "date": "2026-06-19T14:09:35",
-      "source_url": ""
-    },
-    {
-      "name": "BAO FU",
-      "imo": "9419462",
-      "flag": "pa",
-      "date": "2026-06-19T14:09:35",
-      "source_url": ""
-    },
-    {
-      "name": "NORSE IWASHI",
-      "imo": "9970222",
-      "flag": "pa",
-      "date": "2026-06-19T14:09:35",
-      "source_url": ""
-    },
-    {
-      "name": "TIAN MU SHAN",
-      "imo": "9735799",
-      "flag": "mh",
-      "date": "2026-06-19T14:09:35",
       "source_url": ""
     }
   ]
